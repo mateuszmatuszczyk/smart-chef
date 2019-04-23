@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package smartchef;
+
+option java_multiple_files = true;
+option java_package = "com.mateuszmatuszczyk.smartchef";
+option java_outer_classname = "GUIControllerProto";
+
+// The GUI Controller service definition
+service GUIController {
+    
+    rpc switchOn(google.protobuf.Empty) returns (ControllerStatus) {}
+    rpc switchOff(google.protobuf.Empty) returns (ControllerStatus) {}
+    // rpc cookerStatus(google.protobuf.Empty) returns (CookerStatus) {}
+    // rpc startHeating(google.protobuf.Empty) returns (stream CookerStatus) {}
+    // rpc stopHeating(google.protobuf.Empty) returns (stream CookerStatus) {}
+}
+
+message ControllerStatus{
+  string statusMessage = 1;
+}

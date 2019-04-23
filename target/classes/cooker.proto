@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package smartchef;
+
+option java_multiple_files = true;
+option java_package = "com.mateuszmatuszczyk.smartchef";
+option java_outer_classname = "SmartCookerProto";
+
+// The greeting service definition.
+service SmartCooker {
+    rpc switchOn(google.protobuf.Empty) returns (CookerStatus) {}
+    rpc switchOff(google.protobuf.Empty) returns (CookerStatus) {}
+    rpc cookerStatus(google.protobuf.Empty) returns (CookerStatus) {}
+    rpc startHeating(google.protobuf.Empty) returns (stream CookerStatus) {}
+    rpc stopHeating(google.protobuf.Empty) returns (stream CookerStatus) {}
+}
+
+message CookerStatus{
+  string statusMessage = 1;
+  int32 temperature = 2;
+}
