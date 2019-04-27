@@ -47,7 +47,7 @@ public class CookerClient implements ServiceObserver {
         //         ui.setVisible(true);
         //     }
         // });
-        serviceAdded(new ServiceDescription("0.0.0.0", 50000));;
+        serviceAdded(new ServiceDescription("localhost", 50000));
     }
 
     String getServiceType() {
@@ -88,9 +88,9 @@ public class CookerClient implements ServiceObserver {
     /**
      * Send 'switchOn' request to the CookerServer
      */
-    public void switchOn() {
+    public void switchOn(){
         System.out.println("Switching the cooker on...");
-        startHeating();
+        //startHeating();
         try {
             Empty request = Empty.newBuilder().build();
             CookerStatus status = blockingStub.switchOn(request);
@@ -107,7 +107,6 @@ public class CookerClient implements ServiceObserver {
             Empty request = Empty.newBuilder().build();
             CookerStatus status = blockingStub.switchOff(request);
             System.out.println("The cooker is now: " + status.getStatusMessage());
-
         } catch (RuntimeException e) {
             logger.log(Level.WARNING, "RPC failed", e);
             return;
@@ -182,13 +181,13 @@ public class CookerClient implements ServiceObserver {
         // TODO
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         CookerClient client = new CookerClient();
-        
 //        logger.log(Level.INFO, "Checking cooker's status...");
 //        client.showStatus();
 //        System.out.println("Switching the cooker on...");
         client.switchOn();
+        
 //        client.switchOff();
         
 //        System.out.println("Starting heating the cooker up...");
@@ -197,5 +196,5 @@ public class CookerClient implements ServiceObserver {
 //        client.stopHeating();
 //        client.showStatus();
     }
-
 }
+

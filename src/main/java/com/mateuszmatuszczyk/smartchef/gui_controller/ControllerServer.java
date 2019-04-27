@@ -37,8 +37,8 @@ public class ControllerServer {
                 .addService(new ControllerImplementation())
                 .build()
                 .start();
-    JmDNSRegistrationHelper helper = new JmDNSRegistrationHelper("SmartChef", "_GUIcontroller._udp.local.", "", port);
-        
+    JmDNSRegistrationHelper helper = new JmDNSRegistrationHelper("SmartChef", "_GUIcontroller._udp.local.","", port);
+
         logger.info("Server started, listening on port: " + port);
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override

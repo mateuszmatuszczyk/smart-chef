@@ -32,11 +32,18 @@ public class jmDNSServiceTracker implements ServiceListener {
         return instance;
     }
 
+    
     public void register(ServiceObserver observer) {
         this.observer = observer;
-        jmdns.addServiceListener(observer.serviceInterests().get(0), this);
-
+        for (String so : observer.serviceInterests()){
+            jmdns.addServiceListener(so, this);
+        }
     }
+    
+//    public void register(ServiceObserver observer) {
+//        this.observer = observer;
+//        jmdns.addServiceListener(observer.serviceInterests().get(0), this);
+//    }
 
     public void end() {
         try {
@@ -48,6 +55,7 @@ public class jmDNSServiceTracker implements ServiceListener {
 
     public void serviceAdded(ServiceEvent arg0) {
         System.out.println(arg0);
+//        System.out.println(arg0.getDNS().requestServiceInfo(arg0.getType(), arg0.getName(), 0));
         arg0.getDNS().requestServiceInfo(arg0.getType(), arg0.getName(), 0);
     }
 

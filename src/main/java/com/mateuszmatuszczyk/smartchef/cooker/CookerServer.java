@@ -1,6 +1,3 @@
-/**
- * @author Mateusz Matuszczyk
- */
 package com.mateuszmatuszczyk.smartchef.cooker;
 
 import io.grpc.Server;
@@ -63,16 +60,7 @@ public class CookerServer {
             server.awaitTermination();
         }
     }
-
-    /**
-     * Main launches the server from the command line.
-     */
-    public static void main(String[] args) throws Exception {
-        final CookerServer cooker_server = new CookerServer();
-        cooker_server.start();
-        cooker_server.blockUntilShutdown();
-    }
-
+    
     private class CookerImplementation extends SmartCookerGrpc.SmartCookerImplBase {
         
         private boolean cooker_active = false;
@@ -84,16 +72,7 @@ public class CookerServer {
         public CookerImplementation() {
             String name = "SmartCooker";
             String serviceType = "_cooker._udp.local.";
-        }
-
-//        @Override
-//        public void switchOn(com.google.protobuf.Empty request,
-//                io.grpc.stub.StreamObserver<CookerStatus> statusObserver) {
-//            Timer t = new Timer();
-//            t.schedule(new RemindTask(responseObserver), 0, 2000);
-//
-//        }
-        
+        }       
     
         @Override
         public void switchOn(com.google.protobuf.Empty request,
@@ -117,7 +96,8 @@ public class CookerServer {
         
         @Override
         public void cookerStatus(com.google.protobuf.Empty request,
-            io.grpc.stub.StreamObserver<CookerStatus> response) {
+            io.grpc.stub.StreamObserver<CookerStatus> response) 
+        {
             if(cooker_active == false){           
                 response.onNext(CookerStatus.newBuilder().setStatusMessage(statusMsgOff).setTemperature(cooker_temperature).build());
             }
@@ -130,16 +110,10 @@ public class CookerServer {
         
         @Override
         public void startHeating(com.google.protobuf.Empty request,
-                io.grpc.stub.StreamObserver<CookerStatus> responseObserver) {
+                io.grpc.stub.StreamObserver<CookerStatus> responseObserver) 
+        {
             Timer t = new Timer();
             t.schedule(new HeatUp(responseObserver), 0, 2000);
-        }
-        
-        @Override
-        public void stopHeating(com.google.protobuf.Empty request,
-                io.grpc.stub.StreamObserver<CookerStatus> responseObserver) {
-            Timer t = new Timer();
-            t.schedule(new CoolDown(responseObserver), 0, 2000);
         }
         
         class HeatUp extends TimerTask {
@@ -165,6 +139,13 @@ public class CookerServer {
             }
         }
         
+        @Override
+        public void stopHeating(com.google.protobuf.Empty request,
+                io.grpc.stub.StreamObserver<CookerStatus> responseObserver) {
+            Timer t = new Timer();
+            t.schedule(new CoolDown(responseObserver), 0, 2000);
+        }
+        
         class CoolDown extends TimerTask {
 
             StreamObserver<CookerStatus> streamObserver;
@@ -187,26 +168,15 @@ public class CookerServer {
                 }
             }
         }
-//        class RemindTask extends TimerTask {
-//
-//            StreamObserver<BedStatus> o;
-//
-//            public RemindTask(StreamObserver<BedStatus> j) {
-//                o = j;
-//            }
-//
-//            @Override
-//            public void run() {
-//                if (percentHot < 100) {
-//                    percentHot += 10;
-//                    BedStatus status = BedStatus.newBuilder().setPercentageHeated(percentHot).build();
-//                    o.onNext(status);
-//                } else {
-//                    o.onCompleted();
-//                    this.cancel();
-//                }
-//            }
-//        }
+    }
+    
+    /**
+     * Main launches the server from the command line.
+     */
+    public static void main(String[] args) throws Exception {
+        final CookerServer cooker_server = new CookerServer();
+        cooker_server.start();
+        cooker_server.blockUntilShutdown();
     }
 }
 
