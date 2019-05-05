@@ -17,7 +17,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  * <pre>
- * The greeting service definition.
+ * The SmartCooker service definition.
  * </pre>
  */
 @javax.annotation.Generated(
@@ -215,7 +215,7 @@ public final class SmartCookerGrpc {
 
   /**
    * <pre>
-   * The greeting service definition.
+   * The SmartCooker service definition.
    * </pre>
    */
   public static abstract class SmartCookerImplBase implements io.grpc.BindableService {
@@ -298,7 +298,7 @@ public final class SmartCookerGrpc {
 
   /**
    * <pre>
-   * The greeting service definition.
+   * The SmartCooker service definition.
    * </pre>
    */
   public static final class SmartCookerStub extends io.grpc.stub.AbstractStub<SmartCookerStub> {
@@ -360,7 +360,7 @@ public final class SmartCookerGrpc {
 
   /**
    * <pre>
-   * The greeting service definition.
+   * The SmartCooker service definition.
    * </pre>
    */
   public static final class SmartCookerBlockingStub extends io.grpc.stub.AbstractStub<SmartCookerBlockingStub> {
@@ -419,7 +419,7 @@ public final class SmartCookerGrpc {
 
   /**
    * <pre>
-   * The greeting service definition.
+   * The SmartCooker service definition.
    * </pre>
    */
   public static final class SmartCookerFutureStub extends io.grpc.stub.AbstractStub<SmartCookerFutureStub> {

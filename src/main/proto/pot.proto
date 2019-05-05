@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package smartchef;
+
+option java_multiple_files = true;
+option java_package = "com.mateuszmatuszczyk.smartchef";
+option java_outer_classname = "SmartPotProto";
+
+// The SmartPot service definition.
+service SmartPot{
+    rpc switchOn(google.protobuf.Empty) returns (PotStatus) {}
+    rpc switchOff(google.protobuf.Empty) returns (PotStatus) {}
+    rpc potStatus(google.protobuf.Empty) returns (PotStatus) {}
+    rpc addWater(google.protobuf.Empty) returns (stream PotStatus) {}
+    rpc coverWithLid(google.protobuf.Empty) returns (PotStatus) {}
+}
+
+message PotStatus{
+//ON - true
+//OFF - false
+  bool statusOnOff = 1;
+  int32 temperature = 2;
+  int32 waterLevel = 3;
+  bool lidOn = 4;
+  string statusMsg = 5;
+  bool saltedWater = 6;
+}

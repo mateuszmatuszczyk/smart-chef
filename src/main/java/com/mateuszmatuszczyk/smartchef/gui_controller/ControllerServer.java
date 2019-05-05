@@ -29,7 +29,7 @@ public class ControllerServer {
     private static final Logger logger = Logger.getLogger(ControllerServer.class.getName());
 
     /* The port on which the server should run */
-    private int port = 50001;
+    private int port = 50000;
     private Server server;
 
     private void start() throws Exception {

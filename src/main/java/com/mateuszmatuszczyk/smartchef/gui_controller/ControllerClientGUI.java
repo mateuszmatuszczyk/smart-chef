@@ -1,13 +1,21 @@
-package com.mateuszmatuszczyk.smartchef.gui_controller;
-
-import com.mateuszmatuszczyk.smartchef.cooker.CookerClient;
 /**
  *
- * @author dominic
+ * @author Mateusz Matuszczyk
  */
+package com.mateuszmatuszczyk.smartchef.gui_controller;
+
+import java.awt.Color;
+import java.awt.Cursor;
+import javax.swing.JProgressBar;
+
 public class ControllerClientGUI extends javax.swing.JFrame implements Printer {
 
     private ControllerClient controller_client;
+    private boolean cookerStatus;
+    private boolean controllerStatus;
+    private boolean potStatus;
+    private boolean dispenserStatus;
+    private boolean taskDone;
     
     public ControllerClientGUI() {
         initComponents();
@@ -16,6 +24,22 @@ public class ControllerClientGUI extends javax.swing.JFrame implements Printer {
     public ControllerClientGUI(ControllerClient controller_client) {
         this();
         this.controller_client = controller_client;
+        this.cookerStatus = controller_client.getCookerStatusOnOff();
+        this.controllerStatus = false;
+        this.potStatus = controller_client.getPotStatusOnOff();
+        this.dispenserStatus = false;
+        this.cookerSwitch.setEnabled(false);
+        this.controllerSwitch.setBackground(Color.red);        
+        this.potSwitch.setEnabled(false);
+        this.dispenserSwitch.setEnabled(false);
+        this.dispenserSwitch.setBackground(Color.red);
+        this.cookerSwitch.setBackground(Color.red);
+        this.potSwitch.setBackground(Color.red);
+//        this.progressBar = new JProgressBar();
+        this.progressBar.setValue(0);
+        this.progressBar.setStringPainted(true);
+        this.taskDone = false;
+            
     } 
 
     /**
@@ -30,12 +54,14 @@ public class ControllerClientGUI extends javax.swing.JFrame implements Printer {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        controllerSwitch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        cookerSwitch = new javax.swing.JButton();
+        progressBar = new javax.swing.JProgressBar();
+        dispenserSwitch = new javax.swing.JButton();
+        potSwitch = new javax.swing.JButton();
+        startHeatingBtn = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,10 +89,10 @@ public class ControllerClientGUI extends javax.swing.JFrame implements Printer {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jButton1.setText("ON");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        controllerSwitch.setText("GUI Controller");
+        controllerSwitch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                controllerSwitchActionPerformed(evt);
             }
         });
 
@@ -74,20 +100,37 @@ public class ControllerClientGUI extends javax.swing.JFrame implements Printer {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jButton2.setText("OFF");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cookerSwitch.setText("Smart Cooker");
+        cookerSwitch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cookerSwitchActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("GUI Controller Switch");
-        jLabel1.setAutoscrolls(true);
+        progressBar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                progressBarPropertyChange(evt);
+            }
+        });
 
-        jButton3.setText("Cooker ON");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        dispenserSwitch.setText("Food Dispensor");
+        dispenserSwitch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                dispenserSwitchActionPerformed(evt);
+            }
+        });
+
+        potSwitch.setText("Smart Pot");
+        potSwitch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                potSwitchActionPerformed(evt);
+            }
+        });
+
+        startHeatingBtn.setText("Start Heating");
+        startHeatingBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startHeatingBtnActionPerformed(evt);
             }
         });
 
@@ -96,62 +139,124 @@ public class ControllerClientGUI extends javax.swing.JFrame implements Printer {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(140, 140, 140)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
+                                .addGap(25, 25, 25)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(startHeatingBtn)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(cookerSwitch)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(potSwitch)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 128, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(dispenserSwitch)))))
+                        .addGap(15, 15, 15))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(controllerSwitch)
+                        .addGap(132, 132, 132)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(114, 114, 114))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(8, 8, 8)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(controllerSwitch)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton3)))
-                .addGap(59, 59, 59)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                            .addComponent(cookerSwitch)
+                            .addComponent(dispenserSwitch)
+                            .addComponent(potSwitch))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(startHeatingBtn)
+                .addGap(53, 53, 53)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controller_client.switchOn();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        controller_client.switchOff();
-    }//GEN-LAST:event_jButton2ActionPerformed
     
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        controller_client.switchCookerOn();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    
+    private void controllerSwitchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_controllerSwitchActionPerformed
+        if(controllerStatus == true){
+            controller_client.switchOff();
+            controllerSwitch.setBackground(Color.red);
+            cookerStatus = false;
+            cookerSwitch.setEnabled(false);
+            potSwitch.setEnabled(false);
+            dispenserSwitch.setEnabled(false);
+        }
+        else{
+            controllerSwitch.setBackground(Color.green);
+            controller_client.switchOn();
+            controllerStatus = true;
+            cookerSwitch.setEnabled(true);
+            potSwitch.setEnabled(true);
+            dispenserSwitch.setEnabled(true);
+            
+        }
+    }//GEN-LAST:event_controllerSwitchActionPerformed
+    
+    private void cookerSwitchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cookerSwitchActionPerformed
+        if(cookerStatus == true){
+            controller_client.switchCookerOff();
+            cookerSwitch.setBackground(Color.red);
+            cookerStatus = false;
+        }
+        else{
+            cookerSwitch.setBackground(Color.green);
+            controller_client.switchCookerOn();
+            cookerStatus = true;
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_cookerSwitchActionPerformed
+
+    private void dispenserSwitchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dispenserSwitchActionPerformed
+//        if(dispenserStatus == true){
+//            controller_client.switchDispenserOff();
+//            dispenserSwitch.setBackground(Color.red);
+//            dispenserStatus= false;
+//        }
+//        else{
+//            dispenserSwitch.setBackground(Color.green);
+//            controller_client.switchDispenserOn();
+//            dispenserStatus = true;
+//        }
+    }//GEN-LAST:event_dispenserSwitchActionPerformed
+
+    private void potSwitchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_potSwitchActionPerformed
+        if(potStatus == true){
+            controller_client.switchPotOff();
+            potSwitch.setBackground(Color.red);
+            potStatus = false;
+        }
+        else{
+            potSwitch.setBackground(Color.green);
+            controller_client.switchPotOn();
+            potStatus = true;
+        }
+    }//GEN-LAST:event_potSwitchActionPerformed
+
+    private void progressBarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_progressBarPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_progressBarPropertyChange
+
+    private void startHeatingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startHeatingBtnActionPerformed
+        controller_client.startHeating();
+    }//GEN-LAST:event_startHeatingBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,15 +301,17 @@ public class ControllerClientGUI extends javax.swing.JFrame implements Printer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton controllerSwitch;
+    private javax.swing.JButton cookerSwitch;
+    private javax.swing.JButton dispenserSwitch;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton potSwitch;
+    public static javax.swing.JProgressBar progressBar;
+    private javax.swing.JButton startHeatingBtn;
     // End of variables declaration//GEN-END:variables
 
     public void append(String string) {

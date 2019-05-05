@@ -8,17 +8,27 @@ public interface CookerStatusOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string statusMessage = 1;</code>
+   * <pre>
+   *OFF - false 
+   *ON - true
+   * </pre>
+   *
+   * <code>bool statusOnOff = 1;</code>
    */
-  java.lang.String getStatusMessage();
-  /**
-   * <code>string statusMessage = 1;</code>
-   */
-  com.google.protobuf.ByteString
-      getStatusMessageBytes();
+  boolean getStatusOnOff();
 
   /**
-   * <code>int32 temperature = 2;</code>
+   * <code>string statusMsg = 2;</code>
+   */
+  java.lang.String getStatusMsg();
+  /**
+   * <code>string statusMsg = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getStatusMsgBytes();
+
+  /**
+   * <code>int32 temperature = 3;</code>
    */
   int getTemperature();
 }

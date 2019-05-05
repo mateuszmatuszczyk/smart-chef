@@ -29,13 +29,14 @@ public final class GUIControllerProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\020controller.proto\022\tsmartchef\032\033google/pr" +
-      "otobuf/empty.proto\")\n\020ControllerStatus\022\025" +
-      "\n\rstatusMessage\030\001 \001(\t2\226\001\n\rGUIController\022" +
-      "A\n\010switchOn\022\026.google.protobuf.Empty\032\033.sm" +
-      "artchef.ControllerStatus\"\000\022B\n\tswitchOff\022" +
-      "\026.google.protobuf.Empty\032\033.smartchef.Cont" +
-      "rollerStatus\"\000B7\n\037com.mateuszmatuszczyk." +
-      "smartchefB\022GUIControllerProtoP\001b\006proto3"
+      "otobuf/empty.proto\">\n\020ControllerStatus\022\023" +
+      "\n\013statusOnOff\030\001 \001(\010\022\025\n\rstatusMessage\030\002 \001" +
+      "(\t2\226\001\n\rGUIController\022A\n\010switchOn\022\026.googl" +
+      "e.protobuf.Empty\032\033.smartchef.ControllerS" +
+      "tatus\"\000\022B\n\tswitchOff\022\026.google.protobuf.E" +
+      "mpty\032\033.smartchef.ControllerStatus\"\000B7\n\037c" +
+      "om.mateuszmatuszczyk.smartchefB\022GUIContr" +
+      "ollerProtoP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -55,7 +56,7 @@ public final class GUIControllerProto {
     internal_static_smartchef_ControllerStatus_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smartchef_ControllerStatus_descriptor,
-        new java.lang.String[] { "StatusMessage", });
+        new java.lang.String[] { "StatusOnOff", "StatusMessage", });
     com.google.protobuf.EmptyProto.getDescriptor();
   }
 

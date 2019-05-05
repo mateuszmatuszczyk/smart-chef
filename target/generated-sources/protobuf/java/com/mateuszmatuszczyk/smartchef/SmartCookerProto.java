@@ -29,19 +29,19 @@ public final class SmartCookerProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\014cooker.proto\022\tsmartchef\032\033google/protob" +
-      "uf/empty.proto\":\n\014CookerStatus\022\025\n\rstatus" +
-      "Message\030\001 \001(\t\022\023\n\013temperature\030\002 \001(\0052\330\002\n\013S" +
-      "martCooker\022=\n\010switchOn\022\026.google.protobuf" +
-      ".Empty\032\027.smartchef.CookerStatus\"\000\022>\n\tswi" +
-      "tchOff\022\026.google.protobuf.Empty\032\027.smartch" +
-      "ef.CookerStatus\"\000\022A\n\014cookerStatus\022\026.goog" +
-      "le.protobuf.Empty\032\027.smartchef.CookerStat" +
-      "us\"\000\022C\n\014startHeating\022\026.google.protobuf.E" +
-      "mpty\032\027.smartchef.CookerStatus\"\0000\001\022B\n\013sto" +
-      "pHeating\022\026.google.protobuf.Empty\032\027.smart" +
-      "chef.CookerStatus\"\0000\001B5\n\037com.mateuszmatu" +
-      "szczyk.smartchefB\020SmartCookerProtoP\001b\006pr" +
-      "oto3"
+      "uf/empty.proto\"K\n\014CookerStatus\022\023\n\013status" +
+      "OnOff\030\001 \001(\010\022\021\n\tstatusMsg\030\002 \001(\t\022\023\n\013temper" +
+      "ature\030\003 \001(\0052\330\002\n\013SmartCooker\022=\n\010switchOn\022" +
+      "\026.google.protobuf.Empty\032\027.smartchef.Cook" +
+      "erStatus\"\000\022>\n\tswitchOff\022\026.google.protobu" +
+      "f.Empty\032\027.smartchef.CookerStatus\"\000\022A\n\014co" +
+      "okerStatus\022\026.google.protobuf.Empty\032\027.sma" +
+      "rtchef.CookerStatus\"\000\022C\n\014startHeating\022\026." +
+      "google.protobuf.Empty\032\027.smartchef.Cooker" +
+      "Status\"\0000\001\022B\n\013stopHeating\022\026.google.proto" +
+      "buf.Empty\032\027.smartchef.CookerStatus\"\0000\001B5" +
+      "\n\037com.mateuszmatuszczyk.smartchefB\020Smart" +
+      "CookerProtoP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -61,7 +61,7 @@ public final class SmartCookerProto {
     internal_static_smartchef_CookerStatus_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smartchef_CookerStatus_descriptor,
-        new java.lang.String[] { "StatusMessage", "Temperature", });
+        new java.lang.String[] { "StatusOnOff", "StatusMsg", "Temperature", });
     com.google.protobuf.EmptyProto.getDescriptor();
   }
 

@@ -26,6 +26,7 @@ public class JmDNSRegistrationHelper {
             info = ServiceInfo.create(type, name, port,
                     "params=" + location);
             jmdns.registerService(info);
+            System.out.println("ServiceInfo: "+info.toString() +"\nJMDNS: "+jmdns.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

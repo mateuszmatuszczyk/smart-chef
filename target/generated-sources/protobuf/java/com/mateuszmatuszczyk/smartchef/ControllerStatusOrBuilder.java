@@ -8,11 +8,21 @@ public interface ControllerStatusOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string statusMessage = 1;</code>
+   * <pre>
+   *ON - true
+   *OFF - false
+   * </pre>
+   *
+   * <code>bool statusOnOff = 1;</code>
+   */
+  boolean getStatusOnOff();
+
+  /**
+   * <code>string statusMessage = 2;</code>
    */
   java.lang.String getStatusMessage();
   /**
-   * <code>string statusMessage = 1;</code>
+   * <code>string statusMessage = 2;</code>
    */
   com.google.protobuf.ByteString
       getStatusMessageBytes();

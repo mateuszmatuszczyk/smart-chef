@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private ControllerStatus() {
+    statusOnOff_ = false;
     statusMessage_ = "";
   }
 
@@ -43,7 +44,12 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 10: {
+          case 8: {
+
+            statusOnOff_ = input.readBool();
+            break;
+          }
+          case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
             statusMessage_ = s;
@@ -81,10 +87,24 @@ private static final long serialVersionUID = 0L;
             com.mateuszmatuszczyk.smartchef.ControllerStatus.class, com.mateuszmatuszczyk.smartchef.ControllerStatus.Builder.class);
   }
 
-  public static final int STATUSMESSAGE_FIELD_NUMBER = 1;
+  public static final int STATUSONOFF_FIELD_NUMBER = 1;
+  private boolean statusOnOff_;
+  /**
+   * <pre>
+   *ON - true
+   *OFF - false
+   * </pre>
+   *
+   * <code>bool statusOnOff = 1;</code>
+   */
+  public boolean getStatusOnOff() {
+    return statusOnOff_;
+  }
+
+  public static final int STATUSMESSAGE_FIELD_NUMBER = 2;
   private volatile java.lang.Object statusMessage_;
   /**
-   * <code>string statusMessage = 1;</code>
+   * <code>string statusMessage = 2;</code>
    */
   public java.lang.String getStatusMessage() {
     java.lang.Object ref = statusMessage_;
@@ -99,7 +119,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string statusMessage = 1;</code>
+   * <code>string statusMessage = 2;</code>
    */
   public com.google.protobuf.ByteString
       getStatusMessageBytes() {
@@ -129,8 +149,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (statusOnOff_ != false) {
+      output.writeBool(1, statusOnOff_);
+    }
     if (!getStatusMessageBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, statusMessage_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, statusMessage_);
     }
     unknownFields.writeTo(output);
   }
@@ -141,8 +164,12 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (statusOnOff_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(1, statusOnOff_);
+    }
     if (!getStatusMessageBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, statusMessage_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, statusMessage_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -160,6 +187,8 @@ private static final long serialVersionUID = 0L;
     com.mateuszmatuszczyk.smartchef.ControllerStatus other = (com.mateuszmatuszczyk.smartchef.ControllerStatus) obj;
 
     boolean result = true;
+    result = result && (getStatusOnOff()
+        == other.getStatusOnOff());
     result = result && getStatusMessage()
         .equals(other.getStatusMessage());
     result = result && unknownFields.equals(other.unknownFields);
@@ -173,6 +202,9 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + STATUSONOFF_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getStatusOnOff());
     hash = (37 * hash) + STATUSMESSAGE_FIELD_NUMBER;
     hash = (53 * hash) + getStatusMessage().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -308,6 +340,8 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      statusOnOff_ = false;
+
       statusMessage_ = "";
 
       return this;
@@ -336,6 +370,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.mateuszmatuszczyk.smartchef.ControllerStatus buildPartial() {
       com.mateuszmatuszczyk.smartchef.ControllerStatus result = new com.mateuszmatuszczyk.smartchef.ControllerStatus(this);
+      result.statusOnOff_ = statusOnOff_;
       result.statusMessage_ = statusMessage_;
       onBuilt();
       return result;
@@ -385,6 +420,9 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.mateuszmatuszczyk.smartchef.ControllerStatus other) {
       if (other == com.mateuszmatuszczyk.smartchef.ControllerStatus.getDefaultInstance()) return this;
+      if (other.getStatusOnOff() != false) {
+        setStatusOnOff(other.getStatusOnOff());
+      }
       if (!other.getStatusMessage().isEmpty()) {
         statusMessage_ = other.statusMessage_;
         onChanged();
@@ -418,9 +456,50 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private boolean statusOnOff_ ;
+    /**
+     * <pre>
+     *ON - true
+     *OFF - false
+     * </pre>
+     *
+     * <code>bool statusOnOff = 1;</code>
+     */
+    public boolean getStatusOnOff() {
+      return statusOnOff_;
+    }
+    /**
+     * <pre>
+     *ON - true
+     *OFF - false
+     * </pre>
+     *
+     * <code>bool statusOnOff = 1;</code>
+     */
+    public Builder setStatusOnOff(boolean value) {
+      
+      statusOnOff_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     *ON - true
+     *OFF - false
+     * </pre>
+     *
+     * <code>bool statusOnOff = 1;</code>
+     */
+    public Builder clearStatusOnOff() {
+      
+      statusOnOff_ = false;
+      onChanged();
+      return this;
+    }
+
     private java.lang.Object statusMessage_ = "";
     /**
-     * <code>string statusMessage = 1;</code>
+     * <code>string statusMessage = 2;</code>
      */
     public java.lang.String getStatusMessage() {
       java.lang.Object ref = statusMessage_;
@@ -435,7 +514,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string statusMessage = 1;</code>
+     * <code>string statusMessage = 2;</code>
      */
     public com.google.protobuf.ByteString
         getStatusMessageBytes() {
@@ -451,7 +530,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string statusMessage = 1;</code>
+     * <code>string statusMessage = 2;</code>
      */
     public Builder setStatusMessage(
         java.lang.String value) {
@@ -464,7 +543,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string statusMessage = 1;</code>
+     * <code>string statusMessage = 2;</code>
      */
     public Builder clearStatusMessage() {
       
@@ -473,7 +552,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string statusMessage = 1;</code>
+     * <code>string statusMessage = 2;</code>
      */
     public Builder setStatusMessageBytes(
         com.google.protobuf.ByteString value) {
